@@ -13,6 +13,7 @@
 		36A1BD0527C6F0CA00AE0FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A1BD0327C6F0CA00AE0FCB /* Main.storyboard */; };
 		36A1BD0727C6F0CA00AE0FCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36A1BD0627C6F0CA00AE0FCB /* Assets.xcassets */; };
 		36A1BD0A27C6F0CA00AE0FCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A1BD0827C6F0CA00AE0FCB /* LaunchScreen.storyboard */; };
+		36A1BD1627C6F7C000AE0FCB /* ImgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1BD1527C6F7C000AE0FCB /* ImgViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		36A1BD0627C6F0CA00AE0FCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36A1BD0927C6F0CA00AE0FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36A1BD0B27C6F0CA00AE0FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36A1BD1527C6F7C000AE0FCB /* ImgViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				36A1BD0627C6F0CA00AE0FCB /* Assets.xcassets */,
 				36A1BD0827C6F0CA00AE0FCB /* LaunchScreen.storyboard */,
 				36A1BD0B27C6F0CA00AE0FCB /* Info.plist */,
+				36A1BD1527C6F7C000AE0FCB /* ImgViewCell.swift */,
 			);
 			path = Ind02_Goertemiller_Nicholas;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				36A1BD0227C6F0CA00AE0FCB /* ViewController.swift in Sources */,
 				36A1BCFE27C6F0CA00AE0FCB /* AppDelegate.swift in Sources */,
 				36A1BD0027C6F0CA00AE0FCB /* SceneDelegate.swift in Sources */,
+				36A1BD1627C6F7C000AE0FCB /* ImgViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
