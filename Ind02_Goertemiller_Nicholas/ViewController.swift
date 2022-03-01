@@ -53,7 +53,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     
-    @objc func swapButton() {
+    @objc func btnSwitch() {
         guard let start = firstIndexPath, let end = secondIndexPath else { return }
         myCollectionView.performBatchUpdates({
             myCollectionView.moveItem(at: start, to: end)
@@ -177,7 +177,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         switchBtn.topAnchor.constraint(equalTo: myCollectionView.bottomAnchor, constant: 20).isActive=true
         switchBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive=true
         switchBtn.heightAnchor.constraint(equalToConstant: 50).isActive=true
-        switchBtn.addTarget(self, action: #selector(swapButton), for: .touchUpInside)
+        switchBtn.addTarget(self, action: #selector(btnSwitch), for: .touchUpInside)
         
         
         self.view.addSubview(btnShuffle)
