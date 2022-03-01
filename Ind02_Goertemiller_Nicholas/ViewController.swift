@@ -4,12 +4,14 @@
  Dr. MayField CS 4153
  DUE: 02/22/2022
  
+ RAN ON: iphone 12, ios 15.2
+ 
  Program that challenges a player
  to slide (frequently flat) pieces along certain routes
  (usually on a board) to establish a certain end-
  configuration.
  
- 
+ References:
  Freitas, V. (n.d.). Person Holding Black Barbell · free stock photo - PEXELS. Retrieved Feburary 22, 2022, from https://www.pexels.com/photo/person-holding-black-barbell-703014/
 
  */
@@ -18,28 +20,32 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    
+    
+    // all images (in assests) cut equally by GIMP
     var Images =  [#imageLiteral(resourceName: "pexels-victor-freitas-703014-0-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-4.png")]
+    
+    // correct answer array, each index corresponds to the coreect picture in the 4 X 5 table
     var showAnswer = [0, 5, 10, 15, 1, 6, 11, 16, 2, 7, 12, 17, 3, 8, 13, 18, 4, 9, 14, 19]
+    
+    // if user positions incorect image during the game play
     var incorrect = Array(0..<20)
     var incorrectImage=[UIImage]()
     
+    //paths to specific location in arrays
     var firstIndexPath: IndexPath?
     var secondIndexPath: IndexPath?
      
+    // additional initalization on views
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "slidingBlockPuzzle"
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = .lightGray
-        
-        
-        
-        
-        
-        
         incorrectImage = Images
-        setupViews()
+        view()
         
+        // name centered
         let txtLabel = UILabel(frame: CGRect(x: 85, y: 44, width: 244, height: 27))
         txtLabel.text = "Nicholas Goertemiller"
         txtLabel.font = UIFont.systemFont(ofSize: 23.0)
@@ -52,12 +58,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     
-    
+    // The SWITCH button... to switch two images
     @objc func btnSwitch() {
-        guard let start = firstIndexPath, let end = secondIndexPath else { return }
+        guard let start = firstIndexPath,
+        let end = secondIndexPath
+        else {
+            return
+        }
+        // perform muliple modifications all at once
         myCollectionView.performBatchUpdates({
             myCollectionView.moveItem(at: start, to: end)
             myCollectionView.moveItem(at: end, to: start)
+            
+        // Switch algorithm
         }) { (finished) in
             print(self.incorrect)
             self.myCollectionView.deselectItem(at: start, animated: true)
@@ -66,6 +79,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.secondIndexPath = nil
             self.incorrectImage.swapAt(start.item, end.item)
             self.incorrect.swapAt(start.item, end.item)
+            // SHOW ANSWER
             if self.incorrect == self.showAnswer {
                 let alert=UIAlertController(title: "You Won!", message: "Congratulations!!!", preferredStyle: .alert)
                 let restart = UIAlertAction(title: "Restart", style: .default, handler: { (action) in
@@ -76,16 +90,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
     }
-    
+    // puts images back into original position
     func restartGame() {
         incorrect = Array(0..<20)
         incorrectImage = Images
         self.myCollectionView.reloadData()
     }
 
-        
+    // shuffle algorithm to perform endless .shuffle()
     @objc func shuffleBtn() {
-        
         incorrect = Array(0..<20)
         incorrectImage = Images
         firstIndexPath = nil
@@ -96,9 +109,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     
+    // if user sorts all incorrect images and matches the indeces of showAnswer then, user wins.
+    
     @objc func showAnswerBtn() {
-        
-        
         if self.incorrect != self.showAnswer {
             let alert=UIAlertController(title: "Answer will be shown", message: "Click restart, then shuffle to start again.", preferredStyle: .alert)
             let restart = UIAlertAction(title: "Restart", style: .default, handler: { (action) in
@@ -107,31 +120,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             alert.addAction(restart)
             self.present(alert, animated: true, completion: nil)
             
-          //  var showAnswer = [0, 5, 10, 15, 1, 6, 11, 16, 2, 7, 12, 17, 3, 8, 13, 18, 4, 9, 14, 19]
-            
-            
+            // correct images array
             self.Images =  [#imageLiteral(resourceName: "pexels-victor-freitas-703014-0-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-0.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-1.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-2.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-3.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-0-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-1-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-2-4.png"), #imageLiteral(resourceName: "pexels-victor-freitas-703014-3-4.png")]
-            
-            
-            
             self.myCollectionView.reloadData()
+        }
     }
-    }
-    
-    
-        
     
     //MARK: CollectionView
+    // 20 images
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
     
+    
+    // return reusable cell so the user can continue
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ImgViewCell
         cell.ImageView.image=incorrectImage[indexPath.item]
         return cell
     }
     
+    
+    // User selection of Cells
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         if firstIndexPath == nil {
@@ -155,12 +165,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
+    // 4 X 5 table
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         return CGSize(width: width/4, height: width/5)
     }
     
-    func setupViews() {
+    
+    // views of game... where the buttons are located
+    
+    func view() {
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         myCollectionView.register(ImgViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -195,6 +210,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         btnShowAnswer.addTarget(self, action: #selector(showAnswerBtn), for: .touchUpInside)
     }
     
+    
+    // variables... creating visual representation of buttons
+    
+    // layout of game
     let myCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing=0
@@ -205,6 +224,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cv
     }()
     
+    // create switch to select two images and switch them
     let switchBtn: UIButton = {
         let btn=UIButton(type: .system)
         btn.setTitle("SWITCH", for: .normal)
@@ -213,7 +233,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
-    
+    // create shuffle button to shuffle all images
     let btnShuffle: UIButton = {
         let btn=UIButton(type: .system)
         btn.setTitle("SHUFFLE", for: .normal)
@@ -223,7 +243,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return btn
     }()
     
-    
+    // create showAnswer button
     let btnShowAnswer: UIButton = {
         let btn=UIButton(type: .system)
         btn.setTitle("SHOW ANSWER", for: .normal)

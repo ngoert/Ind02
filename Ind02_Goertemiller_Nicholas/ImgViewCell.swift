@@ -41,12 +41,15 @@ class ImgViewCell: UICollectionViewCell {
     
     let ImageView: UIImageView = {
         let v=UIImageView()
+        // original image
         v.image = #imageLiteral(resourceName: "pexels-victor-freitas-703014.png")
+        // set to fill
         v.contentMode = .scaleToFill
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
     }()
     
+    // when user selects image a border will be placed around the image for indication of current selection
     let border: UIView = {
         let v=UIView()
         v.backgroundColor = UIColor.clear
@@ -56,6 +59,8 @@ class ImgViewCell: UICollectionViewCell {
         return v
     }()
     
+    
+    // required
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
